@@ -2,6 +2,9 @@ package uk.co.ramyun.herblore.task;
 
 import org.osbot.rs07.script.MethodProvider;
 
+import uk.co.ramyun.herblore.target.AbstractTarget;
+import uk.co.ramyun.herblore.target.NoTarget;
+
 public abstract class HerbloreTask {
 
 	/**
@@ -9,22 +12,30 @@ public abstract class HerbloreTask {
 	 * @file HerbloreTask.java
 	 */
 
-	protected boolean started = false;
+	protected AbstractTarget target = new NoTarget();
 
 	public abstract boolean canRun(MethodProvider mp);
 
 	public abstract void run(MethodProvider mp);
 
-	public boolean isComplete() {
-		return true;
+	public AbstractTarget getTarget() {
+		return target;
+	}
+
+	public void setTarget(AbstractTarget newTarget) {
+		this.target = newTarget;
+	}
+
+	public boolean isComplete(MethodProvider mp) {
+		return target.accomplished(mp);
 	}
 
 	public boolean hasStarted() {
-		return started;
+		return target.started();
 	}
 
 	public void start(MethodProvider mp) {
-		started = true;
+		target.start(mp);
 	}
 
 }

@@ -51,7 +51,7 @@ public class HerbloreTaskManager {
 		Optional<HerbloreTask> currentTask = getCurrent();
 		currentTask.ifPresent(t -> {
 			if (!t.hasStarted()) t.start(mp);
-			else if (!t.isComplete()) t.run(mp);
+			else if (!t.isComplete(mp)) t.run(mp);
 			else tasks.poll();
 		});
 		return tasks.isEmpty();
