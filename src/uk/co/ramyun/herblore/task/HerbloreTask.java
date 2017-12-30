@@ -16,7 +16,12 @@ public abstract class HerbloreTask {
 
 	public abstract boolean canRun(MethodProvider mp);
 
-	public abstract void run(MethodProvider mp);
+	protected abstract void run(MethodProvider mp);
+
+	public void execute(MethodProvider mp) {
+		if (!target.started()) target.start(mp);
+		else run(mp);
+	}
 
 	public AbstractTarget getTarget() {
 		return target;
@@ -28,14 +33,6 @@ public abstract class HerbloreTask {
 
 	public boolean isComplete(MethodProvider mp) {
 		return target.accomplished(mp);
-	}
-
-	public boolean hasStarted() {
-		return target.started();
-	}
-
-	public void start(MethodProvider mp) {
-		target.start(mp);
 	}
 
 }

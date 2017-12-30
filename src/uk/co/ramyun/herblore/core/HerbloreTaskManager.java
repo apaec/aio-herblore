@@ -50,8 +50,7 @@ public class HerbloreTaskManager {
 	public boolean loop(MethodProvider mp) {
 		Optional<HerbloreTask> currentTask = getCurrent();
 		currentTask.ifPresent(t -> {
-			if (!t.hasStarted()) t.start(mp);
-			else if (!t.isComplete(mp)) t.run(mp);
+			if (!t.isComplete(mp)) t.execute(mp);
 			else tasks.poll();
 		});
 		return tasks.isEmpty();
