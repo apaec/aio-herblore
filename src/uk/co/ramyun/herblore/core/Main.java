@@ -21,6 +21,7 @@ public class Main extends Script {
 	private final GaussianRandom gRandom = new GaussianRandom();
 	private final Timer runTime = new Timer(0L);
 	private final MovementManager movementManager = new MovementManager();
+	private final HerbloreTaskManager herbloreTaskManager = new HerbloreTaskManager();
 
 	@Override
 	public void onStart() throws InterruptedException {
@@ -38,13 +39,20 @@ public class Main extends Script {
 
 	@Override
 	public void onExit() {
+		log("Time running: " + runTime.toString());
 		log("Script stopped: " + this.getName() + " v" + getVersion() + " by " + this.getAuthor() + ".");
 	}
 
 	@Override
 	public int onLoop() throws InterruptedException {
 		movementManager.roll(this);
+		if (herbloreTaskManager.loop(this)) logStop("All registered herblore tasks have been completed.", true);
 		return gRandom.gRandomInRange(100, 300);
+	}
+
+	private void logStop(String message, boolean log) {
+		this.log(message);
+		stop(log);
 	}
 
 	@Override

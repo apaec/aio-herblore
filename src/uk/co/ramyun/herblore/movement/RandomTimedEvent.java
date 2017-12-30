@@ -1,6 +1,6 @@
 package uk.co.ramyun.herblore.movement;
 
-import org.osbot.rs07.script.Script;
+import org.osbot.rs07.script.MethodProvider;
 
 import uk.co.ramyun.herblore.util.GaussianRandom;
 import uk.co.ramyun.herblore.util.Timer;
@@ -9,7 +9,7 @@ import uk.co.ramyun.herblore.util.Timer;
 abstract class RandomTimedEvent implements MovementEvent {
 	/**
 	 * @author © Michael 7 Sep 2017
-	 * @file TimedEvent.java
+	 * @file RandomTimedEvent.java
 	 */
 
 	protected final GaussianRandom random = new GaussianRandom();
@@ -49,7 +49,7 @@ abstract class RandomTimedEvent implements MovementEvent {
 	}
 
 	@Override
-	public void execute(Script script) {
+	public void execute(MethodProvider mp) {
 		timer.reset();
 		setThreshold(generateThreshold());
 	}

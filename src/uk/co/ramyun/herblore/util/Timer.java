@@ -35,7 +35,7 @@ public class Timer {
 		period = 0;
 	}
 
-	public String format() {
+	private String format() {
 		long sec = getElapsed() / 1000, d = sec / 86400, h = sec / 3600 % 24, m = sec / 60 % 60, s = sec % 60;
 		return (d < 10 ? "0" + d : d) + ":" + (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":"
 				+ (s < 10 ? "0" + s : s);

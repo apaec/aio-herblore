@@ -1,13 +1,12 @@
 package uk.co.ramyun.herblore.movement;
 
 import org.osbot.rs07.script.MethodProvider;
-import org.osbot.rs07.script.Script;
 
 public class RandomCameraEvent extends RandomTimedEvent implements MovementEvent {
 
 	/**
 	 * @author © Michael 7 Sep 2017
-	 * @file CameraEvent.java
+	 * @file RandomCameraEvent.java
 	 */
 
 	private final int MAX_CAMERA_PITCH = 67;
@@ -26,26 +25,25 @@ public class RandomCameraEvent extends RandomTimedEvent implements MovementEvent
 	}
 
 	@Override
-	public void execute(Script script) {
+	public void execute(MethodProvider mp) {
 		switch (MethodProvider.random(5)) {
 			case 0:
-				script.getCamera().toTop();
+				mp.getCamera().toTop();
 				break;
 			case 1:
-				script.getCamera().moveYaw(random.gRandomInRange(0, 180));
+				mp.getCamera().moveYaw(random.gRandomInRange(0, 180));
 				break;
 			case 3:
-				script.getCamera().moveYaw(random.gRandomInRange(0, 90));
+				mp.getCamera().moveYaw(random.gRandomInRange(0, 90));
 				break;
 			case 2:
-				script.getCamera()
-						.movePitch(random.gRandomInRange(script.getCamera().getLowestPitchAngle(), MAX_CAMERA_PITCH));
+				mp.getCamera().movePitch(random.gRandomInRange(mp.getCamera().getLowestPitchAngle(), MAX_CAMERA_PITCH));
 				break;
 			case 4:
-				script.getCamera().toBottom();
+				mp.getCamera().toBottom();
 				break;
 		}
-		super.execute(script);
+		super.execute(mp);
 	}
 
 	@Override

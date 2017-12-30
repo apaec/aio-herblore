@@ -1,5 +1,7 @@
 package uk.co.ramyun.herblore.task;
 
+import org.osbot.rs07.script.MethodProvider;
+
 public class MakeFinished extends HerbloreTask {
 
 	/**
@@ -8,13 +10,13 @@ public class MakeFinished extends HerbloreTask {
 	 */
 
 	@Override
-	boolean canRun() {
+	public boolean canRun(MethodProvider mp) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	void run() {
+	public void run(MethodProvider mp) {
 		// TODO Auto-generated method stub
 	}
 }
