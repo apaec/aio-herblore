@@ -1,13 +1,6 @@
 package uk.co.ramyun.herblore.core;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.util.Arrays;
-import java.util.Optional;
-
-import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
@@ -17,7 +10,7 @@ import uk.co.ramyun.herblore.movement.RandomMouseEvent;
 import uk.co.ramyun.herblore.util.GaussianRandom;
 import uk.co.ramyun.herblore.util.Timer;
 
-@ScriptManifest(author = "Apaec", info = "Rooftop Agility", name = "APA Rooftops", version = 1.01, logo = "https://i.imgur.com/UY53dZx.png")
+@ScriptManifest(author = "Apaec", info = "AIO Herblore", name = "APA AIO Herblore", version = 1.00, logo = "")
 public class Main extends Script {
 
 	/**
