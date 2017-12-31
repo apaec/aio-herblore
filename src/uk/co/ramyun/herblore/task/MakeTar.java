@@ -1,5 +1,11 @@
 package uk.co.ramyun.herblore.task;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
 import org.osbot.rs07.script.MethodProvider;
 
 import uk.co.ramyun.herblore.potion.Tar;
@@ -11,10 +17,19 @@ public class MakeTar extends HerbloreTask {
 	 * @file MakeTar.java
 	 */
 
-	private final Tar tar;
+	private Tar tar = Tar.GUAM_TAR;
 
 	public MakeTar(Tar toMake) {
 		this.tar = toMake;
+		panel.add(new JLabel("Tar to make:"));
+		JComboBox<Tar> tarCombo = new JComboBox<Tar>(Tar.values());
+		tarCombo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tar = (Tar) tarCombo.getSelectedItem();
+			}
+		});
+		panel.add(tarCombo);
 	}
 
 	@Override

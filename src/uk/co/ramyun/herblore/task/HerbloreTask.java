@@ -3,6 +3,7 @@ package uk.co.ramyun.herblore.task;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import org.osbot.rs07.script.MethodProvider;
@@ -18,11 +19,14 @@ public abstract class HerbloreTask {
 	 */
 
 	protected AbstractTarget target = new NoTarget();
-	protected JPanel panel = new JPanel();
+	protected JPanel panel = new JPanel(), containerPanel = new JPanel();
 
 	public HerbloreTask() {
+		containerPanel.setBorder(new TitledBorder("Task Settings"));
+		containerPanel.setLayout(new GridLayout());
 		panel.setLayout(new GridLayout(1, 2, 5, 5));
-		panel.setBorder(new TitledBorder("Target Settings"));
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		containerPanel.add(panel);
 	}
 
 	public abstract String getName();
@@ -52,7 +56,7 @@ public abstract class HerbloreTask {
 	 * @return the ui panel
 	 */
 	public JPanel getPanel() {
-		return panel;
+		return containerPanel;
 	}
 
 	/**

@@ -1,5 +1,11 @@
 package uk.co.ramyun.herblore.task;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
 import org.osbot.rs07.script.MethodProvider;
 
 import uk.co.ramyun.herblore.potion.Potion;
@@ -11,15 +17,24 @@ public class MakeFinished extends HerbloreTask {
 	 * @file MakeFinished.java
 	 */
 
-	private final Potion potion;
+	private Potion potion = Potion.ATTACK_POTION;
 
 	public MakeFinished(Potion toMake) {
 		this.potion = toMake;
+		panel.add(new JLabel("Potion to make:"));
+		JComboBox<Potion> potionCombo = new JComboBox<Potion>(Potion.values());
+		potionCombo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				potion = (Potion) potionCombo.getSelectedItem();
+			}
+		});
+		panel.add(potionCombo);
 	}
 
 	@Override
 	public String getName() {
-		return "Make " + potion.getGenericName() + "s";
+		return "Make potion: " + potion.getGenericName();
 	}
 
 	@Override

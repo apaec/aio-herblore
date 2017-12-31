@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -26,6 +27,7 @@ public class TargetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final JComboBox<AbstractTarget> targetCombo;
 	private final JSpinner spinner = new JSpinner();
+	private final JPanel contentPane = new JPanel();
 
 	private AbstractTarget chosen;
 
@@ -54,9 +56,12 @@ public class TargetPanel extends JPanel {
 		});
 
 		setBorder(new TitledBorder("Target Settings"));
-		setLayout(new GridLayout(1, 2, 5, 5));
-		add(targetCombo);
-		add(spinner);
+		setLayout(new GridLayout());
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new GridLayout(1, 2, 5, 5));
+		contentPane.add(targetCombo);
+		contentPane.add(spinner);
+		add(contentPane);
 	}
 
 	private SpinnerNumberModel getSpinnerModelForTarget(AbstractTarget t) {
