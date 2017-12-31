@@ -44,7 +44,7 @@ public class Ui extends JFrame implements TaskCollectionObserver {
 
 	private static final long serialVersionUID = 1L;
 
-	private final JPanel contentPane = new JPanel(), listButtonPanel = new JPanel(), addButtonPanel = new JPanel();
+	private final JPanel contentPane = new JPanel(), controlButtonPanel = new JPanel(), addButtonPanel = new JPanel();
 	private final JButton rmButton = new JButton("Remove"), clrButton = new JButton("Clear"),
 			cleanButton = new JButton("Add herb cleaning task"),
 			unfinishedButton = new JButton("Add unfinished potion task"),
@@ -132,17 +132,17 @@ public class Ui extends JFrame implements TaskCollectionObserver {
 		scrollPane.setColumnHeaderView(new JLabel("Registered Task Queue", SwingConstants.CENTER));
 		scrollPane.setViewportView(taskList);
 
-		listButtonPanel.setLayout(new GridLayout(1, 2, 5, 5));
+		controlButtonPanel.setLayout(new GridLayout(1, 2, 5, 5));
 		addButtonPanel.setLayout(new GridLayout(5, 1, 5, 5));
 
-		listButtonPanel.add(rmButton);
-		listButtonPanel.add(clrButton);
+		controlButtonPanel.add(rmButton);
+		controlButtonPanel.add(clrButton);
 
 		addButtonPanel.add(cleanButton);
 		addButtonPanel.add(unfinishedButton);
 		addButtonPanel.add(finishedButton);
 		addButtonPanel.add(tarButton);
-		addButtonPanel.add(listButtonPanel);
+		addButtonPanel.add(controlButtonPanel);
 
 		contentPane.add(addButtonPanel, BorderLayout.LINE_END);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
