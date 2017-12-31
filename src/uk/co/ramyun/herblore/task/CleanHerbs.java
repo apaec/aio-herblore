@@ -22,7 +22,7 @@ public class CleanHerbs extends HerbloreTask {
 	public CleanHerbs(Herb toClean) {
 		this.herb = toClean;
 		panel.add(new JLabel("Herb to clean:"));
-		JComboBox<Herb> herbCombo = new JComboBox<Herb>(Herb.values());
+		JComboBox<Herb> herbCombo = new JComboBox<Herb>(Herb.cleanableValues());
 		herbCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
