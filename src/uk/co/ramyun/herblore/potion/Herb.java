@@ -39,6 +39,10 @@ public enum Herb {
 		return name;
 	}
 
+	public String getBaseName() {
+		return name.split(" ")[0];
+	}
+
 	@Override
 	public String toString() {
 		return getFullName();
