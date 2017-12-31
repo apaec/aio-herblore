@@ -42,7 +42,7 @@ public class LevelTarget extends AbstractTarget {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return skill.toString() + " level reached";
 	}
 

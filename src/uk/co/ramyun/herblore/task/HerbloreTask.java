@@ -21,9 +21,11 @@ public abstract class HerbloreTask {
 	protected JPanel panel = new JPanel();
 
 	public HerbloreTask() {
-		panel.setLayout(new GridLayout(1, 2, 2, 2));
+		panel.setLayout(new GridLayout(1, 2, 5, 5));
 		panel.setBorder(new TitledBorder("Target Settings"));
 	}
+
+	public abstract String getName();
 
 	public abstract boolean canRun(MethodProvider mp);
 
@@ -79,6 +81,11 @@ public abstract class HerbloreTask {
 	 */
 	public boolean isComplete(MethodProvider mp) {
 		return target.accomplished(mp);
+	}
+
+	@Override
+	public String toString() {
+		return getName() + ", Stop when: " + getTarget() + " (" + getTarget().getThreshold() + ")";
 	}
 
 }

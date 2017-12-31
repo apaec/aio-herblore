@@ -18,6 +18,11 @@ public class MakeTar extends HerbloreTask {
 	}
 
 	@Override
+	public String getName() {
+		return "Make " + tar.getName();
+	}
+
+	@Override
 	public boolean canRun(MethodProvider mp) {
 		// TODO Auto-generated method stub
 		return false;

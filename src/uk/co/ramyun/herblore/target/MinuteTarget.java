@@ -48,7 +48,7 @@ public class MinuteTarget extends AbstractTarget {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "Minute(s) passed";
 	}
 

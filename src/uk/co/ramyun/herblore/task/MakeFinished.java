@@ -18,6 +18,11 @@ public class MakeFinished extends HerbloreTask {
 	}
 
 	@Override
+	public String getName() {
+		return "Make " + potion.getGenericName() + "s";
+	}
+
+	@Override
 	public boolean canRun(MethodProvider mp) {
 		// TODO Auto-generated method stub
 		return false;

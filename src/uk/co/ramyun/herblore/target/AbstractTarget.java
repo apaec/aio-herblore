@@ -58,4 +58,11 @@ public abstract class AbstractTarget {
 	}
 
 	protected abstract boolean targetReached(MethodProvider mp);
+
+	public abstract String getName();
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

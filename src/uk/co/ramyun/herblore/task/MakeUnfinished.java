@@ -18,6 +18,11 @@ public class MakeUnfinished extends HerbloreTask {
 	}
 
 	@Override
+	public String getName() {
+		return "Make " + unfinished.getName() + "s";
+	}
+
+	@Override
 	public boolean canRun(MethodProvider mp) {
 		// TODO Auto-generated method stub
 		return false;

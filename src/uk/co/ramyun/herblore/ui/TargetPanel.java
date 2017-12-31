@@ -41,9 +41,8 @@ public class TargetPanel extends JPanel {
 		targetCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				AbstractTarget selected = (AbstractTarget) targetCombo.getSelectedItem();
-				chosen = selected;
-				spinner.setModel(getSpinnerModelForTarget(selected));
+				chosen = (AbstractTarget) targetCombo.getSelectedItem();
+				spinner.setModel(getSpinnerModelForTarget(chosen));
 			}
 		});
 
@@ -55,7 +54,7 @@ public class TargetPanel extends JPanel {
 		});
 
 		setBorder(new TitledBorder("Target Settings"));
-		setLayout(new GridLayout(1, 2, 2, 2));
+		setLayout(new GridLayout(1, 2, 5, 5));
 		add(targetCombo);
 		add(spinner);
 	}

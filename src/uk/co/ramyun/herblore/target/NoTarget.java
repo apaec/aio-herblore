@@ -15,11 +15,6 @@ public class NoTarget extends AbstractTarget {
 	}
 
 	@Override
-	public String toString() {
-		return "No target";
-	}
-
-	@Override
 	public long maxThreshold() {
 		return 0L;
 	}
@@ -37,6 +32,11 @@ public class NoTarget extends AbstractTarget {
 	@Override
 	public long getStep() {
 		return 0L;
+	}
+
+	@Override
+	public String getName() {
+		return "Out of supplies";
 	}
 
 }

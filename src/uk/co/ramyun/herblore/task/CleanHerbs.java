@@ -33,6 +33,11 @@ public class CleanHerbs extends HerbloreTask {
 	}
 
 	@Override
+	public String getName() {
+		return "Clean herb: " + herb.getBaseName();
+	}
+
+	@Override
 	public boolean canRun(MethodProvider mp) {
 		// TODO Auto-generated method stub
 		return false;

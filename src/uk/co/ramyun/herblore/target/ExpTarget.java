@@ -58,7 +58,7 @@ public class ExpTarget extends AbstractTarget {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return skill.toString() + " exp gained";
 	}
 
