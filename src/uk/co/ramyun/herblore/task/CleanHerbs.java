@@ -1,5 +1,11 @@
 package uk.co.ramyun.herblore.task;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
 import org.osbot.rs07.script.MethodProvider;
 
 import uk.co.ramyun.herblore.potion.Herb;
@@ -11,10 +17,19 @@ public class CleanHerbs extends HerbloreTask {
 	 * @file CleanHerbs.java
 	 */
 
-	private final Herb herb;
+	private Herb herb = Herb.GUAM_LEAF;
 
 	public CleanHerbs(Herb toClean) {
 		this.herb = toClean;
+		panel.add(new JLabel("Herb to clean:"));
+		JComboBox<Herb> herbCombo = new JComboBox<Herb>(Herb.values());
+		herbCombo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				herb = (Herb) herbCombo.getSelectedItem();
+			}
+		});
+		panel.add(herbCombo);
 	}
 
 	@Override

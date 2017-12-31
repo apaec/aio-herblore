@@ -10,7 +10,7 @@ public abstract class AbstractTarget {
 	 */
 
 	protected boolean started = false, forceAccomplished = false;
-	protected long threshold = 0;
+	protected long threshold = defaultThreshold();
 
 	public void start(MethodProvider mp) {
 		started = true;
@@ -47,6 +47,10 @@ public abstract class AbstractTarget {
 
 	public long defaultThreshold() {
 		return minThreshold();
+	}
+
+	public long getStep() {
+		return 1L;
 	}
 
 	public void forceAccomplished() {

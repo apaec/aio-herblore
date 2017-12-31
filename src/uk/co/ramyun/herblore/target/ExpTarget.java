@@ -13,6 +13,10 @@ public class ExpTarget extends AbstractTarget {
 	private final Skill skill;
 	private long startingXp = 0;
 
+	public ExpTarget(Skill skill) {
+		this.skill = skill;
+	}
+
 	public ExpTarget(long xpThreshold, Skill skill) {
 		setThreshold(xpThreshold);
 		this.skill = skill;
@@ -20,12 +24,22 @@ public class ExpTarget extends AbstractTarget {
 
 	@Override
 	public long maxThreshold() {
-		return 1000000;
+		return 1000000L;
 	}
 
 	@Override
 	public long minThreshold() {
-		return 1;
+		return 1L;
+	}
+
+	@Override
+	public long defaultThreshold() {
+		return 1000L;
+	}
+
+	@Override
+	public long getStep() {
+		return 1000L;
 	}
 
 	@Override

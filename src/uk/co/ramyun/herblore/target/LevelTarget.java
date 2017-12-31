@@ -12,6 +12,10 @@ public class LevelTarget extends AbstractTarget {
 
 	private final Skill skill;
 
+	public LevelTarget(Skill skill) {
+		this.skill = skill;
+	}
+
 	public LevelTarget(int level, Skill skill) {
 		setThreshold(level);
 		this.skill = skill;
@@ -24,12 +28,12 @@ public class LevelTarget extends AbstractTarget {
 
 	@Override
 	public long maxThreshold() {
-		return 99;
+		return 99L;
 	}
 
 	@Override
 	public long minThreshold() {
-		return 2;
+		return 2L;
 	}
 
 	@Override

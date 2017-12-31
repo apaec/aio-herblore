@@ -19,4 +19,24 @@ public class NoTarget extends AbstractTarget {
 		return "No target";
 	}
 
+	@Override
+	public long maxThreshold() {
+		return 0L;
+	}
+
+	@Override
+	public long minThreshold() {
+		return 0L;
+	}
+
+	@Override
+	public long defaultThreshold() {
+		return 0L;
+	}
+
+	@Override
+	public long getStep() {
+		return 0L;
+	}
+
 }
