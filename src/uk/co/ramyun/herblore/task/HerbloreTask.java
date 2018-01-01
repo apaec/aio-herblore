@@ -29,23 +29,36 @@ public abstract class HerbloreTask {
 		containerPanel.add(panel);
 	}
 
+	/**
+	 * Returns the name of the task
+	 * 
+	 * @return the formatted name of the task
+	 */
 	public abstract String getName();
 
+	/**
+	 * Determines whether the user meets the requirements for this task to run
+	 * 
+	 * @param mp the script MethodProvider instance
+	 * @return whether the task can run
+	 */
 	public abstract boolean canRun(MethodProvider mp);
 
 	/**
 	 * Runs the task
 	 * 
 	 * @param mp the script MethodProvider instance
+	 * @throws InterruptedException
 	 */
-	protected abstract void run(MethodProvider mp);
+	protected abstract void run(MethodProvider mp) throws InterruptedException;
 
 	/**
 	 * Access point to the task. Starts the task if necessary, otherwise runs it
 	 * 
 	 * @param mp the script MethodProvider instance
+	 * @throws InterruptedException
 	 */
-	public void execute(MethodProvider mp) {
+	public void execute(MethodProvider mp) throws InterruptedException {
 		if (!target.started()) target.start(mp);
 		else run(mp);
 	}
@@ -89,7 +102,8 @@ public abstract class HerbloreTask {
 
 	@Override
 	public String toString() {
-		return getName() + ", Stop when: " + getTarget() + " (" + getTarget().getThreshold() + ")";
+		return getName() + ", Stop when: " + getTarget()
+				+ (getTarget().getThreshold() > 0 ? " (" + getTarget().getThreshold() + ")" : "");
 	}
 
 }

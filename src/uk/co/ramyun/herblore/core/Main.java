@@ -1,6 +1,9 @@
 package uk.co.ramyun.herblore.core;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+
+import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
@@ -28,12 +31,13 @@ public class Main extends Script implements TaskCollectionObserver {
 
 	@Override
 	public void onStart() throws InterruptedException {
-
 		Ui ui = new Ui();
 		ui.setVisible(true);
 
 		while (ui.isVisible())
 			sleep(400);
+
+		experienceTracker.start(Skill.HERBLORE);
 
 		herbloreTaskManager = ui.getHerbloreTaskManager();
 		herbloreTaskManager.registerObserver(this);
@@ -69,7 +73,14 @@ public class Main extends Script implements TaskCollectionObserver {
 	}
 
 	@Override
-	public void onPaint(Graphics2D g) {}
+	public void onPaint(Graphics2D g) {
+		if (getMouse().isWithinCanvas()) {
+			g.setColor(new Color(255, 255, 255, 180));
+			int mouseX = getMouse().getPosition().x, mouseY = getMouse().getPosition().y;
+			g.drawLine(mouseX - 5, mouseY + 5, mouseX + 5, mouseY - 5);
+			g.drawLine(mouseX + 5, mouseY + 5, mouseX - 5, mouseY - 5);
+		}
+	}
 
 	@Override
 	public void taskRegistered(HerbloreTask t) {

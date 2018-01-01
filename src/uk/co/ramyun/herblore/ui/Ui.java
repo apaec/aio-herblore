@@ -156,8 +156,7 @@ public class Ui extends JFrame implements TaskCollectionObserver {
 			newTask.setTarget(toShow.getTarget());
 			herbloreTaskManager.registerTask(newTask);
 			return true;
-		}
-		return false;
+		} else return false;
 	}
 
 	public HerbloreTaskManager getHerbloreTaskManager() {

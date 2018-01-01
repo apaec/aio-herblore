@@ -62,6 +62,10 @@ public enum Herb {
 		return cleanable;
 	}
 
+	public String getGrimyName() {
+		return "Grimy " + name.toLowerCase();
+	}
+
 	public String getFullName() {
 		return name;
 	}

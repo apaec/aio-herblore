@@ -57,14 +57,17 @@ public class HerbloreTaskManager implements Observable {
 
 	public boolean loop(MethodProvider mp) {
 		getCurrent().ifPresent(t -> {
-			if (!t.isComplete(mp)) t.execute(mp);
+			if (!t.isComplete(mp) && t.canRun(mp)) try {
+				t.execute(mp);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			else {
 				HerbloreTask polled = tasks.poll();
 				observers.forEach(o -> o.taskDeregistered(polled));
 			}
 		});
 		return tasks.isEmpty();
-
 	}
 
 	@Override
