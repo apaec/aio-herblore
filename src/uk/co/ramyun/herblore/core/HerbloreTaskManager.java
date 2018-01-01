@@ -63,6 +63,7 @@ public class HerbloreTaskManager implements Observable {
 				e.printStackTrace();
 			}
 			else {
+				t.stop(mp);
 				HerbloreTask polled = tasks.poll();
 				observers.forEach(o -> o.taskDeregistered(polled));
 			}

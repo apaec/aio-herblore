@@ -18,7 +18,7 @@ public enum Herb {
 
 	CADANTINE(65), LANTADYME(67), DWARF_WEED(70), TORSTOL(75), STARFLOWER(0);
 
-	private final String name;
+	private final String name, grimyName;
 	private final boolean cleanable;
 	private final int cleanLevel;
 
@@ -27,6 +27,7 @@ public enum Herb {
 		this.cleanable = cleanLevel > 0;
 		String temp = super.toString().toLowerCase().replace("_", " ");
 		this.name = Character.toUpperCase(temp.charAt(0)) + temp.substring(1, temp.length());
+		this.grimyName = "Grimy " + name.toLowerCase();
 	}
 
 	public static Herb[] cleanableValues() {
@@ -63,7 +64,7 @@ public enum Herb {
 	}
 
 	public String getGrimyName() {
-		return "Grimy " + name.toLowerCase();
+		return grimyName;
 	}
 
 	public String getFullName() {

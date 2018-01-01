@@ -20,6 +20,7 @@ public abstract class HerbloreTask {
 
 	protected AbstractTarget target = new NoTarget();
 	protected JPanel panel = new JPanel(), containerPanel = new JPanel();
+	protected boolean started = false;
 
 	public HerbloreTask() {
 		containerPanel.setBorder(new TitledBorder("Task Settings"));
@@ -53,13 +54,30 @@ public abstract class HerbloreTask {
 	protected abstract void run(MethodProvider mp) throws InterruptedException;
 
 	/**
+	 * Starts the task
+	 * 
+	 * @param mp the script MethodProvider instance
+	 */
+	protected void start(MethodProvider mp) {
+		started = true;
+	}
+
+	/**
+	 * Stops the task
+	 * 
+	 * @param mp the script MethodProvider instance
+	 */
+	public void stop(MethodProvider mp) {}
+
+	/**
 	 * Access point to the task. Starts the task if necessary, otherwise runs it
 	 * 
 	 * @param mp the script MethodProvider instance
 	 * @throws InterruptedException
 	 */
 	public void execute(MethodProvider mp) throws InterruptedException {
-		if (!target.started()) target.start(mp);
+		if (!started) start(mp);
+		else if (!target.started()) target.start(mp);
 		else run(mp);
 	}
 

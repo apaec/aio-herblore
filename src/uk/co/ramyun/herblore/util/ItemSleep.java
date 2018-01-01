@@ -11,17 +11,28 @@ public class ItemSleep extends ConditionalSleep {
 
 	private final MethodProvider mp;
 	private final long initialAmount;
-	private final String itemName;
+	private final String item;
+	private final boolean greater;
 
 	public ItemSleep(MethodProvider mp, String itemName, int timeout) {
 		super(timeout);
 		this.mp = mp;
-		this.itemName = itemName;
+		this.item = itemName;
+		this.greater = true;
+		this.initialAmount = mp.getInventory().contains(itemName) ? mp.getInventory().getAmount(itemName) : 0;
+	}
+
+	public ItemSleep(MethodProvider mp, String itemName, boolean greater, int timeout) {
+		super(timeout);
+		this.mp = mp;
+		this.item = itemName;
+		this.greater = greater;
 		this.initialAmount = mp.getInventory().contains(itemName) ? mp.getInventory().getAmount(itemName) : 0;
 	}
 
 	@Override
 	public boolean condition() throws InterruptedException {
-		return mp.getInventory().contains(itemName) && mp.getInventory().getAmount(itemName) > initialAmount;
+		if (greater) return mp.getInventory().contains(item) && mp.getInventory().getAmount(item) > initialAmount;
+		else return !mp.getInventory().contains(item) || mp.getInventory().getAmount(item) < initialAmount;
 	}
 }
