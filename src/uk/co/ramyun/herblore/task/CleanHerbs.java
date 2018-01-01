@@ -23,7 +23,7 @@ public class CleanHerbs extends HerbloreTask {
 	 */
 
 	private final InventoryNavigator invNav = new InventoryNavigator(7, 4);
-	private Mode mode = Mode.SNAKE_HORIZONTAL_SUPERFAST;
+	private Mode mode = Mode.CONDITIONAL;
 	private Herb herb = Herb.GUAM_LEAF;
 	private ItemSleep itemSleep;
 
@@ -64,7 +64,7 @@ public class CleanHerbs extends HerbloreTask {
 	}
 
 	private enum Mode {
-		CONDITIONAL, NORMAL, SNAKE_HORIZONTAL, SNAKE_VERTICAL, NORMAL_SUPERFAST, SNAKE_HORIZONTAL_SUPERFAST, SNAKE_VERTICAL_SUPERFAST;
+		CONDITIONAL, LINE, SNAKE_HORIZONTAL, SNAKE_VERTICAL, NORMAL_SUPERFAST, SNAKE_HORIZONTAL_SUPERFAST, SNAKE_VERTICAL_SUPERFAST;
 		@Override
 		public String toString() {
 			String mode = super.toString().toLowerCase().replace("_", " ");
@@ -90,8 +90,8 @@ public class CleanHerbs extends HerbloreTask {
 					itemSleep = new ItemSleep(mp, herb.getFullName(), 2000);
 					if (mp.getInventory().interact("Clean", herb.getGrimyName())) itemSleep.sleep();
 					break;
-				case NORMAL:
-					slotInteract(mp, invNav.nextNormal(), herb.getGrimyName(), "Clean");
+				case LINE:
+					slotInteract(mp, invNav.nextLine(), herb.getGrimyName(), "Clean");
 					break;
 				case SNAKE_HORIZONTAL:
 					slotInteract(mp, invNav.nextSnakeHorizontal(), herb.getGrimyName(), "Clean");
@@ -105,7 +105,7 @@ public class CleanHerbs extends HerbloreTask {
 					break;
 				case NORMAL_SUPERFAST:
 					for (int i = 0; i < 28; i++)
-						slotInteract(mp, invNav.nextNormal(), herb.getGrimyName(), "Clean");
+						slotInteract(mp, invNav.nextLine(), herb.getGrimyName(), "Clean");
 					break;
 				case SNAKE_VERTICAL_SUPERFAST:
 					for (int i = 0; i < 28; i++)

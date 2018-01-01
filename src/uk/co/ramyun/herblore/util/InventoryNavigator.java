@@ -28,7 +28,7 @@ public class InventoryNavigator {
 	 * >── ─── ─── ───
 	 * >── ─── ─── ──■
 	 */
-	public int nextNormal() {
+	public int nextLine() {
 		if (row < 0 || row > (rows - 1)) row = 0;
 		if (col < 0 || col > (cols - 1)) col = 0;
 		int slot = (cols * row) + col;
