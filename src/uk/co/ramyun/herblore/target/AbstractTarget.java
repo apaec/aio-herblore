@@ -130,6 +130,13 @@ public abstract class AbstractTarget {
 	 */
 	public abstract String getName();
 
+	/**
+	 * Returns the progress of this target
+	 * 
+	 * @return the current progress
+	 */
+	public abstract String getProgress(MethodProvider mp);
+
 	@Override
 	public String toString() {
 		return getName();

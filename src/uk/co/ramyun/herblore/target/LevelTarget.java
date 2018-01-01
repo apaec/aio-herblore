@@ -42,6 +42,11 @@ public class LevelTarget extends AbstractTarget {
 	}
 
 	@Override
+	public String getProgress(MethodProvider mp) {
+		return mp.getSkills().getStatic(skill) + "/" + getThreshold();
+	}
+
+	@Override
 	public String getName() {
 		return skill.toString() + " level reached";
 	}

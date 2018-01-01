@@ -58,6 +58,11 @@ public class ExpTarget extends AbstractTarget {
 	}
 
 	@Override
+	public String getProgress(MethodProvider mp) {
+		return mp.getExperienceTracker().getGainedXP(skill) + "/" + getLimitXp() + " xp";
+	}
+
+	@Override
 	public String getName() {
 		return skill.toString() + " exp gained";
 	}

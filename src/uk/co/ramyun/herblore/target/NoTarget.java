@@ -35,6 +35,11 @@ public class NoTarget extends AbstractTarget {
 	}
 
 	@Override
+	public String getProgress(MethodProvider mp) {
+		return "-";
+	}
+
+	@Override
 	public String getName() {
 		return "Out of supplies";
 	}

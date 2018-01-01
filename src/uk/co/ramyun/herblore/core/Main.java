@@ -1,6 +1,7 @@
 package uk.co.ramyun.herblore.core;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import org.osbot.rs07.api.ui.Skill;
@@ -72,14 +73,25 @@ public class Main extends Script implements TaskCollectionObserver {
 		stop(log);
 	}
 
+	private final Font paintFont = new Font("Dialog", Font.PLAIN, 12);
+	private final Color cursorColour = new Color(255, 255, 255, 180), textColour = Color.WHITE;
+
 	@Override
 	public void onPaint(Graphics2D g) {
-		g.setColor(new Color(255, 255, 255, 180));
 
-		herbloreTaskManager.getCurrent().ifPresent(t -> g.drawString("Current task: " + t, 10, 150));
-		g.drawString("Run time: " + runTime.toString(), 10, 170);
+		g.setColor(textColour);
+		g.setFont(paintFont);
 
+		g.drawString(getName() + " v " + getVersion() + " by " + getAuthor(), 10, 240);
+		g.drawString("Run time: " + runTime.toString(), 10, 260);
+		herbloreTaskManager.getCurrent().ifPresent(t -> {
+			g.drawString("Task: " + t, 10, 280);
+			g.drawString("Progress: " + t.getTarget().getProgress(this), 10, 300);
+		});
+
+		/* Draw cross cursor */
 		if (getMouse().isWithinCanvas()) {
+			g.setColor(cursorColour);
 			int mouseX = getMouse().getPosition().x, mouseY = getMouse().getPosition().y;
 			g.drawLine(mouseX - 5, mouseY + 5, mouseX + 5, mouseY - 5);
 			g.drawLine(mouseX + 5, mouseY + 5, mouseX - 5, mouseY - 5);

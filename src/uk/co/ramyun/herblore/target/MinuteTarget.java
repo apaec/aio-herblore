@@ -48,6 +48,11 @@ public class MinuteTarget extends AbstractTarget {
 	}
 
 	@Override
+	public String getProgress(MethodProvider mp) {
+		return timer.getElapsed() / 60000 + "/" + getThreshold() + " min(s)";
+	}
+
+	@Override
 	public String getName() {
 		return "Minute(s) passed";
 	}

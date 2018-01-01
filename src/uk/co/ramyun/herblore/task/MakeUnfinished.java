@@ -111,29 +111,25 @@ public class MakeUnfinished extends HerbloreTask {
 					switch (MethodProvider.random(0, 2)) {
 						case 0:
 							switch (banker.withdrawItem(mp, unfinished.getHerb().getFullName(), 14, false, false)) {
-								case ACTION_FAIL:
-									break;
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;
 								case INSUFFICIENT_SPACE:
 									if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 									break;
-								case SUCCESS:
+								default:
 									break;
 							}
 							break;
 						case 1:
 							switch (banker.withdrawItem(mp, unfinished.getVessel().getName(), 14, false, false)) {
-								case ACTION_FAIL:
-									break;
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;
 								case INSUFFICIENT_SPACE:
 									if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 									break;
-								case SUCCESS:
+								default:
 									break;
 							}
 							break;
