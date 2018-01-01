@@ -1,5 +1,6 @@
 package uk.co.ramyun.herblore.task;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,14 +22,14 @@ public class CleanHerbs extends HerbloreTask {
 	 * @file CleanHerbs.java
 	 */
 
-	private final Mode mode = Mode.SNAKE_HORIZONTAL_SUPERFAST;
 	private final InventoryNavigator invNav = new InventoryNavigator(7, 4);
+	private Mode mode = Mode.SNAKE_HORIZONTAL_SUPERFAST;
 	private Herb herb = Herb.GUAM_LEAF;
 	private ItemSleep itemSleep;
 
 	public CleanHerbs(Herb toClean) {
 		this.herb = toClean;
-		panel.add(new JLabel("Herb to clean:"));
+
 		JComboBox<Herb> herbCombo = new JComboBox<Herb>(Herb.cleanableValues());
 		herbCombo.addActionListener(new ActionListener() {
 			@Override
@@ -36,7 +37,20 @@ public class CleanHerbs extends HerbloreTask {
 				herb = (Herb) herbCombo.getSelectedItem();
 			}
 		});
+
+		JComboBox<Mode> modeCombo = new JComboBox<Mode>(Mode.values());
+		modeCombo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mode = (Mode) modeCombo.getSelectedItem();
+			}
+		});
+
+		panel.setLayout(new GridLayout(2, 2, 5, 5));
+		panel.add(new JLabel("Herb to clean:"));
 		panel.add(herbCombo);
+		panel.add(new JLabel("Cleaning mode:"));
+		panel.add(modeCombo);
 	}
 
 	@Override
@@ -59,7 +73,7 @@ public class CleanHerbs extends HerbloreTask {
 	}
 
 	private boolean slotInteract(MethodProvider mp, int slot, String item, String interaction) {
-		if (slot > 0 && slot < 28) {
+		if (slot >= 0 && slot < 28) {
 			if (mp.getInventory().getItemInSlot(slot).getName().equals(item))
 				return mp.getInventory().interact(slot, interaction);
 		}
