@@ -63,6 +63,9 @@ public class MakeUnfinished extends HerbloreTask {
 		return unfinished.hasLevel(mp);
 	}
 
+	/**
+	 * Describes the status of a bank withdraw attempt.
+	 */
 	private enum WithdrawStatus {
 		SUCCESS(false), INSUFFICIENT_AMOUNT(true), INSUFFICIENT_SPACE(false), ACTION_FAIL(false);
 		private final boolean fatal;
@@ -86,7 +89,7 @@ public class MakeUnfinished extends HerbloreTask {
 			BankMode requiredMode = noted ? BankMode.WITHDRAW_NOTE : BankMode.WITHDRAW_ITEM;
 			if (mp.getInventory().contains(itemName)) current = (int) mp.getInventory().getAmount(itemName);
 			if (current == total) return WithdrawStatus.SUCCESS;
-			needed = (int) (total - current);
+			needed = total - current;
 			if (!mp.getBank().getWithdrawMode().equals(requiredMode)) mp.getBank().enableMode(requiredMode);
 			if (mp.getBank().getAmount(itemName) < needed) return WithdrawStatus.INSUFFICIENT_AMOUNT;
 			if (stackable) {
@@ -101,7 +104,7 @@ public class MakeUnfinished extends HerbloreTask {
 				} else if (emptySlots < needed) {
 					return WithdrawStatus.INSUFFICIENT_SPACE;
 				} else if (current > total) {
-					if (mp.getBank().deposit(itemName, (int) (current - total)) && itemSleepGreater.sleep())
+					if (mp.getBank().deposit(itemName, current - total) && itemSleepGreater.sleep())
 						return WithdrawStatus.SUCCESS;
 				} else if (current < total) {
 					if (mp.getBank().withdraw(itemName, needed) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
