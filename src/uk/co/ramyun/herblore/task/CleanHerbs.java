@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.script.MethodProvider;
 import org.osbot.rs07.utility.ConditionalSleep;
 
@@ -64,7 +65,7 @@ public class CleanHerbs extends HerbloreTask {
 	}
 
 	private enum Mode {
-		CONDITIONAL, LINE, SNAKE_HORIZONTAL, SNAKE_VERTICAL, NORMAL_SUPERFAST, SNAKE_HORIZONTAL_SUPERFAST, SNAKE_VERTICAL_SUPERFAST;
+		CONDITIONAL, LINE, SNAKE_HORIZONTAL, SNAKE_VERTICAL, LINE_SUPERFAST, SNAKE_HORIZONTAL_SUPERFAST, SNAKE_VERTICAL_SUPERFAST;
 		@Override
 		public String toString() {
 			String mode = super.toString().toLowerCase().replace("_", " ");
@@ -74,8 +75,8 @@ public class CleanHerbs extends HerbloreTask {
 
 	private boolean slotInteract(MethodProvider mp, int slot, String item, String interaction) {
 		if (slot >= 0 && slot < 28) {
-			if (mp.getInventory().getItemInSlot(slot).getName().equals(item))
-				return mp.getInventory().interact(slot, interaction);
+			Item inSlot = mp.getInventory().getItemInSlot(slot);
+			if (inSlot != null && inSlot.getName().equals(item)) return mp.getInventory().interact(slot, interaction);
 		}
 		return false;
 	}
@@ -103,7 +104,7 @@ public class CleanHerbs extends HerbloreTask {
 					for (int i = 0; i < 28; i++)
 						slotInteract(mp, invNav.nextSnakeHorizontal(), herb.getGrimyName(), "Clean");
 					break;
-				case NORMAL_SUPERFAST:
+				case LINE_SUPERFAST:
 					for (int i = 0; i < 28; i++)
 						slotInteract(mp, invNav.nextLine(), herb.getGrimyName(), "Clean");
 					break;

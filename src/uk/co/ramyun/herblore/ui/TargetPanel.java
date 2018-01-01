@@ -36,6 +36,7 @@ public class TargetPanel extends JPanel {
 		this.targetCombo = new JComboBox<AbstractTarget>(targets);
 		this.chosen = targets[0];
 		spinner.setModel(getSpinnerModelForTarget(chosen));
+		spinner.setEnabled(chosen.getThreshold() > 0);
 
 		spinner.setPreferredSize(new Dimension(String.valueOf(Arrays.stream(targets).map(AbstractTarget::maxThreshold)
 				.reduce((a, b) -> Math.max(a, b)).orElse(100000L)).length() * 10, spinner.getHeight()));
@@ -45,6 +46,7 @@ public class TargetPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				chosen = (AbstractTarget) targetCombo.getSelectedItem();
 				spinner.setModel(getSpinnerModelForTarget(chosen));
+				spinner.setEnabled(chosen.getThreshold() > 0);
 			}
 		});
 

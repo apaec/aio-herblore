@@ -104,7 +104,8 @@ public class MakeTar extends HerbloreTask {
 			}
 		} else {
 			if (mp.getBank().isOpen()) {
-				if (!mp.getInventory().isEmptyExcept("Swamp tar", "Pestle and mortar", tar.getHerb().getFullName())) {
+				if (!mp.getInventory().isEmptyExcept("Swamp tar", "Pestle and mortar", tar.getName(),
+						tar.getHerb().getFullName())) {
 					if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 				} else {
 					switch (banker.withdrawItem(mp, "Pestle and mortar", 1, false, false)) {

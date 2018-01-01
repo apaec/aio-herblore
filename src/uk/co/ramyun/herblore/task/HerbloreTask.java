@@ -76,9 +76,9 @@ public abstract class HerbloreTask {
 	 * @throws InterruptedException
 	 */
 	public void execute(MethodProvider mp) throws InterruptedException {
-		if (!started) start(mp);
-		else if (!target.started()) target.start(mp);
-		else run(mp);
+		if (started && target.started()) run(mp);
+		else if (!started) start(mp);
+		else target.start(mp);
 	}
 
 	/**
