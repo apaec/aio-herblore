@@ -126,7 +126,7 @@ public class Main extends Script implements TaskCollectionObserver {
 		String[] suffix = new String[] { "K", "M", "B", "T" };
 		int size = (l != 0) ? (int) Math.log10(l) : 0;
 		if (size >= 3) while (size % 3 != 0)
-			size = size - 1;
+			size--;
 		return (size >= 3) ? +(Math.round((l / Math.pow(10, size)) * 10) / 10d) + suffix[(size / 3) - 1] : +l + "";
 	}
 

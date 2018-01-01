@@ -67,6 +67,7 @@ public class MakeFinished extends HerbloreTask {
 		if (potion.canMake(mp)) {
 			if (animationTracker.isBusy(2000)) {
 				// ...Then we're making glorious potions!
+				mp.getMouse().moveOutsideScreen();
 				MethodProvider.sleep(50);
 			} else if (mp.getBank().isOpen()) {
 				if (mp.getBank().close()) new BankSleep(mp, false, 4000).sleep();

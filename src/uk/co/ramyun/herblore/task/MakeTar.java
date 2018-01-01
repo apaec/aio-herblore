@@ -68,6 +68,7 @@ public class MakeTar extends HerbloreTask {
 		if (tar.canMake(mp)) {
 			if (animationTracker.isBusy(2000)) {
 				// ...Then we're making (not-so-glorious) tars!
+				mp.getMouse().moveOutsideScreen();
 				MethodProvider.sleep(50);
 			} else if (mp.getBank().isOpen()) {
 				if (mp.getBank().close()) new BankSleep(mp, false, 4000).sleep();
