@@ -74,8 +74,12 @@ public class Main extends Script implements TaskCollectionObserver {
 
 	@Override
 	public void onPaint(Graphics2D g) {
+		g.setColor(new Color(255, 255, 255, 180));
+
+		herbloreTaskManager.getCurrent().ifPresent(t -> g.drawString("Current task: " + t, 10, 150));
+		g.drawString("Run time: " + runTime.toString(), 10, 170);
+
 		if (getMouse().isWithinCanvas()) {
-			g.setColor(new Color(255, 255, 255, 180));
 			int mouseX = getMouse().getPosition().x, mouseY = getMouse().getPosition().y;
 			g.drawLine(mouseX - 5, mouseY + 5, mouseX + 5, mouseY - 5);
 			g.drawLine(mouseX + 5, mouseY + 5, mouseX - 5, mouseY - 5);
