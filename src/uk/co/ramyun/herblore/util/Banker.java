@@ -29,6 +29,16 @@ public class Banker {
 		}
 	}
 
+	/**
+	 * 'Sets' the amount of an item in inventory
+	 * 
+	 * @param mp the MethodProvider instance
+	 * @param itemName the item to withdraw
+	 * @param total the desired amount of said item
+	 * @param stackable whether the item is stackable
+	 * @param noted whether to withdraw noted
+	 * @throws InterruptedException
+	 */
 	public WithdrawStatus withdrawItem(MethodProvider mp, String itemName, int total, boolean stackable, boolean noted)
 			throws InterruptedException {
 		if (mp.getBank().isOpen()) {
@@ -41,7 +51,8 @@ public class Banker {
 			needed = total - current;
 			if (!mp.getBank().getWithdrawMode().equals(requiredMode)) mp.getBank().enableMode(requiredMode);
 			if (mp.getBank().getAmount(itemName) < needed) return WithdrawStatus.INSUFFICIENT_AMOUNT;
-			if (stackable) {
+			if (stackable || noted) {
+				/* TODO: Will not work if noted and inv full of un-noted item */
 				if (emptySlots >= 1 || current > 0) {
 					if (mp.getBank().withdraw(itemName, needed) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
 				} else if (emptySlots == 0 && current == 0) return WithdrawStatus.INSUFFICIENT_SPACE;
@@ -66,6 +77,9 @@ public class Banker {
 	/**
 	 * For stackable items only
 	 * 
+	 * @param mp the MethodProvider instance
+	 * @param minimumAmount the minimum item amount required
+	 * @param itemName the item to withdraw
 	 * @throws InterruptedException
 	 */
 	public WithdrawStatus withdrawAllButOne(MethodProvider mp, long minimumAmount, String itemName)

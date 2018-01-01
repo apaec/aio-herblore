@@ -100,6 +100,7 @@ public class CleanHerbs extends HerbloreTask {
 				case SNAKE_VERTICAL:
 					slotInteract(mp, invNav.nextSnakeVertical(), herb.getGrimyName(), "Clean");
 					break;
+				/* The following three are fast but cannot be interrupted */
 				case SNAKE_HORIZONTAL_SUPERFAST:
 					for (int i = 0; i < 28; i++)
 						slotInteract(mp, invNav.nextSnakeHorizontal(), herb.getGrimyName(), "Clean");
