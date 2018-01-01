@@ -63,6 +63,27 @@ public class Banker {
 		return WithdrawStatus.ACTION_FAIL;
 	}
 
+	/**
+	 * For stackable items only
+	 * 
+	 * @throws InterruptedException
+	 */
+	public WithdrawStatus withdrawAllButOne(MethodProvider mp, long minimumAmount, String itemName)
+			throws InterruptedException {
+		if (mp.getBank().isOpen()) {
+			long currentAmount = mp.getInventory().contains(itemName) ? mp.getInventory().getAmount(itemName) : 0,
+					minimumNeeded = minimumAmount - currentAmount;
+			ItemSleep itemSleep = new ItemSleep(mp, itemName, 4000);
+			if (currentAmount > minimumAmount) return WithdrawStatus.SUCCESS;
+			else if (mp.getInventory().getEmptySlots() > 0 || currentAmount > 0) {
+				if (mp.getBank().contains(itemName) && mp.getBank().getAmount(itemName) > minimumNeeded) {
+					if (mp.getBank().withdrawAllButOne(itemName) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
+				} else return WithdrawStatus.INSUFFICIENT_AMOUNT;
+			} else return WithdrawStatus.INSUFFICIENT_SPACE;
+		} else if (mp.getBank().open()) new BankSleep(mp, true, 4000).sleep();
+		return WithdrawStatus.ACTION_FAIL;
+	}
+
 	public boolean sleepUntilInventoryEmpty(MethodProvider mp, int timeout) {
 		return new ConditionalSleep(timeout) {
 			@Override

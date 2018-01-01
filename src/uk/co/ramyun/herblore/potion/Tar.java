@@ -19,12 +19,13 @@ public enum Tar {
 	HARRALANDER_TAR(Herb.HARRALANDER, 44);
 
 	private final Herb herb;
-	private final String name;
+	private final String name, buttonName;
 	private final int levelRequired;
 
 	Tar(Herb herb, int levelRequired) {
 		this.herb = herb;
 		this.name = herb.getBaseName() + " tar";
+		this.buttonName = "15 " + name.toLowerCase();
 		this.levelRequired = levelRequired;
 	}
 
@@ -49,8 +50,16 @@ public enum Tar {
 		return name;
 	}
 
+	public String getButtonName() {
+		return buttonName;
+	}
+
 	public boolean hasHerb(MethodProvider mp) {
 		return herb.has(mp);
+	}
+
+	public boolean hasPestleAndMortar(MethodProvider mp) {
+		return mp.getInventory().contains("Pestle and Mortar");
 	}
 
 	public boolean hasLevel(MethodProvider mp) {
@@ -62,7 +71,7 @@ public enum Tar {
 	}
 
 	public boolean canMake(MethodProvider mp) {
-		return hasLevel(mp) && hasHerb(mp) && hasSufficientSwampTar(mp);
+		return hasLevel(mp) && hasPestleAndMortar(mp) && hasHerb(mp) && hasSufficientSwampTar(mp);
 	}
 
 	@Override
