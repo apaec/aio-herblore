@@ -2,20 +2,17 @@ package uk.co.ramyun.herblore.task;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-import org.osbot.rs07.api.Bank.BankMode;
-import org.osbot.rs07.api.ui.RS2Widget;
 import org.osbot.rs07.script.MethodProvider;
 import org.osbot.rs07.utility.ConditionalSleep;
 
 import uk.co.ramyun.herblore.potion.Unfinished;
 import uk.co.ramyun.herblore.util.AnimationTracker;
 import uk.co.ramyun.herblore.util.BankSleep;
-import uk.co.ramyun.herblore.util.ItemSleep;
+import uk.co.ramyun.herblore.util.Banker;
+import uk.co.ramyun.herblore.util.MakeWidget;
 
 public class MakeUnfinished extends HerbloreTask {
 
@@ -24,6 +21,8 @@ public class MakeUnfinished extends HerbloreTask {
 	 * @file MakeUnfinished.java
 	 */
 
+	private final Banker banker = new Banker();
+	private final MakeWidget makeWidget = new MakeWidget();
 	private Unfinished unfinished = Unfinished.GUAM_POTION;
 	private AnimationTracker animationTracker;
 
@@ -63,68 +62,6 @@ public class MakeUnfinished extends HerbloreTask {
 		return unfinished.hasLevel(mp);
 	}
 
-	/**
-	 * Describes the status of a bank withdraw attempt.
-	 */
-	private enum WithdrawStatus {
-		SUCCESS(false), INSUFFICIENT_AMOUNT(true), INSUFFICIENT_SPACE(false), ACTION_FAIL(false);
-		private final boolean fatal;
-
-		WithdrawStatus(boolean fatal) {
-			this.fatal = fatal;
-		}
-
-		@SuppressWarnings("unused")
-		public boolean isFatal() {
-			return fatal;
-		}
-	}
-
-	public WithdrawStatus withdrawItem(MethodProvider mp, String itemName, int total, boolean stackable, boolean noted)
-			throws InterruptedException {
-		if (mp.getBank().isOpen()) {
-			int current = 0, emptySlots = mp.getInventory().getEmptySlots(), needed = 0;
-			ItemSleep itemSleep = new ItemSleep(mp, itemName, 4000),
-					itemSleepGreater = new ItemSleep(mp, itemName, false, 4000);
-			BankMode requiredMode = noted ? BankMode.WITHDRAW_NOTE : BankMode.WITHDRAW_ITEM;
-			if (mp.getInventory().contains(itemName)) current = (int) mp.getInventory().getAmount(itemName);
-			if (current == total) return WithdrawStatus.SUCCESS;
-			needed = total - current;
-			if (!mp.getBank().getWithdrawMode().equals(requiredMode)) mp.getBank().enableMode(requiredMode);
-			if (mp.getBank().getAmount(itemName) < needed) return WithdrawStatus.INSUFFICIENT_AMOUNT;
-			if (stackable) {
-				if (emptySlots >= 1 || current > 0) {
-					if (mp.getBank().withdraw(itemName, needed) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
-				} else if (emptySlots == 0 && current == 0) return WithdrawStatus.INSUFFICIENT_SPACE;
-			} else {
-				if (emptySlots == 0) {
-					return WithdrawStatus.INSUFFICIENT_SPACE;
-				} else if (emptySlots == needed) {
-					if (mp.getBank().withdrawAll(itemName) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
-				} else if (emptySlots < needed) {
-					return WithdrawStatus.INSUFFICIENT_SPACE;
-				} else if (current > total) {
-					if (mp.getBank().deposit(itemName, current - total) && itemSleepGreater.sleep())
-						return WithdrawStatus.SUCCESS;
-				} else if (current < total) {
-					if (mp.getBank().withdraw(itemName, needed) && itemSleep.sleep()) return WithdrawStatus.SUCCESS;
-				}
-			}
-		} else if (mp.getBank().open()) new BankSleep(mp, true, 4000).sleep();
-		return WithdrawStatus.ACTION_FAIL;
-	}
-
-	@SuppressWarnings("unchecked")
-	private RS2Widget getForActionExact(MethodProvider mp, int root, String seq) {
-		return mp.getWidgets().singleFilter(root, w -> w.getInteractActions() != null
-				&& Arrays.stream(w.getInteractActions()).filter(s -> s.equals(seq)).count() > 0);
-	}
-
-	@SuppressWarnings("unchecked")
-	private RS2Widget getForSpellName(MethodProvider mp, int root, String seq) {
-		return mp.getWidgets().singleFilter(root, w -> w.getSpellName().contains(seq));
-	}
-
 	@Override
 	public void run(MethodProvider mp) throws InterruptedException {
 		if (unfinished.canMake(mp)) {
@@ -134,39 +71,16 @@ public class MakeUnfinished extends HerbloreTask {
 			} else if (mp.getBank().isOpen()) {
 				if (mp.getBank().close()) new BankSleep(mp, false, 4000).sleep();
 			} else {
-				RS2Widget mainWidget = getForSpellName(mp, 270, unfinished.getName());
-				if (!mp.getInventory().isItemSelected() && mainWidget != null) {
-					RS2Widget valueWidget = getForActionExact(mp, 270, "All");
-					if (valueWidget != null && valueWidget.interact("All")) {
-						new ConditionalSleep(5000) {
-							@Override
-							public boolean condition() throws InterruptedException {
-								return getForActionExact(mp, 270, "All") == null;
-							}
-						}.sleep();
-					} else if (mainWidget.interact("Make")) {
-						new ConditionalSleep(4000) {
-							@Override
-							public boolean condition() throws InterruptedException {
-								return mp.myPlayer().isAnimating();
-							}
-						}.sleep();
-					}
+				if (makeWidget.buttonAvailable(mp, unfinished.getName())) {
+					makeWidget.pressButtonAnimation(mp, unfinished.getName(), "Make");
 				} else {
 					if (mp.getInventory().isItemSelected()) {
-						ConditionalSleep waitForWidget = new ConditionalSleep(2000) {
-							@Override
-							public boolean condition() throws InterruptedException {
-								RS2Widget mainWidget = getForSpellName(mp, 270, unfinished.getName());
-								return mainWidget != null && mainWidget.isVisible();
-							}
-						};
 						if (mp.getInventory().getSelectedItemName().equals(unfinished.getVessel().getName())) {
 							if (mp.getInventory().interact("Use", unfinished.getHerb().getFullName()))
-								waitForWidget.sleep();
+								makeWidget.sleepUntilButtonAvailable(mp, unfinished.getName(), 2000);
 						} else if (mp.getInventory().getSelectedItemName().equals(unfinished.getHerb().getFullName())) {
 							if (mp.getInventory().interact("Use", unfinished.getVessel().getName()))
-								waitForWidget.sleep();
+								makeWidget.sleepUntilButtonAvailable(mp, unfinished.getName(), 2000);
 						} else mp.getInventory().deselectItem();
 					} else {
 						ConditionalSleep waitForSelection = new ConditionalSleep(2000) {
@@ -192,47 +106,32 @@ public class MakeUnfinished extends HerbloreTask {
 			if (mp.getBank().isOpen()) {
 				if (!mp.getInventory().isEmptyExcept(unfinished.getHerb().getFullName(),
 						unfinished.getVessel().getName())) {
-					if (mp.getBank().depositAll()) new ConditionalSleep(5000) {
-						@Override
-						public boolean condition() throws InterruptedException {
-							return mp.getInventory().isEmpty();
-						}
-					}.sleep();
+					if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 				} else {
 					switch (MethodProvider.random(0, 2)) {
 						case 0:
-							switch (withdrawItem(mp, unfinished.getHerb().getFullName(), 14, false, false)) {
+							switch (banker.withdrawItem(mp, unfinished.getHerb().getFullName(), 14, false, false)) {
 								case ACTION_FAIL:
 									break;
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;
 								case INSUFFICIENT_SPACE:
-									if (mp.getBank().depositAll()) new ConditionalSleep(5000) {
-										@Override
-										public boolean condition() throws InterruptedException {
-											return mp.getInventory().isEmpty();
-										}
-									}.sleep();
+									if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 									break;
 								case SUCCESS:
 									break;
 							}
 							break;
 						case 1:
-							switch (withdrawItem(mp, unfinished.getVessel().getName(), 14, false, false)) {
+							switch (banker.withdrawItem(mp, unfinished.getVessel().getName(), 14, false, false)) {
 								case ACTION_FAIL:
 									break;
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;
 								case INSUFFICIENT_SPACE:
-									if (mp.getBank().depositAll()) new ConditionalSleep(5000) {
-										@Override
-										public boolean condition() throws InterruptedException {
-											return mp.getInventory().isEmpty();
-										}
-									}.sleep();
+									if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 									break;
 								case SUCCESS:
 									break;
