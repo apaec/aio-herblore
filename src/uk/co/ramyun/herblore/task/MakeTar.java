@@ -118,7 +118,8 @@ public class MakeTar extends HerbloreTask {
 							break;
 						case SUCCESS:
 							if (tar.hasSufficientSwampTar(mp)) {
-								switch (banker.withdrawItem(mp, tar.getHerb().getFullName(), 26, false, false)) {
+								switch (banker.withdrawItem(mp, tar.getHerb().getFullName(),
+										mp.getInventory().getEmptySlots(), false, false)) {
 									case INSUFFICIENT_AMOUNT:
 										target.forceAccomplished();
 										break;
