@@ -35,6 +35,16 @@ public class ProgressBar {
 		this.text = textAndBorder;
 	}
 
+	public ProgressBar(MethodProvider mp, Skill skill, int x, int y, int width, int height) {
+		this.mp = mp;
+		this.name = skill.toString();
+		this.skill = skill;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+
 	public Skill getSkill() {
 		return skill;
 	}
@@ -119,15 +129,16 @@ public class ProgressBar {
 
 	public void draw(Graphics2D g) {
 		Color initialColour = g.getColor();
-		int percentage = getPercentage(getCurrentExperience(), getTargetExperience());
+		int percentage = getPercentage(getCurrentExperience(), getTargetExperience()),
+				greenWidth = getWidth(percentage, width);
 
 		/* Progress made */
 		g.setColor(green);
-		g.fillRect(x, y, getWidth(percentage, width), height);
+		g.fillRect(x, y, greenWidth, height);
 
 		/* Progress to go */
 		g.setColor(red);
-		g.fillRect(x + getWidth(percentage, width), y, width - getWidth(percentage, width), height);
+		g.fillRect(x + greenWidth, y, width - greenWidth, height);
 
 		/* Border */
 		g.setColor(text);
