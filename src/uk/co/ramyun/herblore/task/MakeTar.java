@@ -109,7 +109,7 @@ public class MakeTar extends HerbloreTask {
 						tar.getHerb().getFullName())) {
 					if (mp.getBank().depositAll()) banker.sleepUntilInventoryEmpty(mp, 4000);
 				} else {
-					switch (banker.withdrawItem(mp, "Pestle and mortar", 1, false, false)) {
+					switch (banker.withdrawItem(mp, "Pestle and mortar", 1, false, false, false)) {
 						case INSUFFICIENT_AMOUNT:
 							target.forceAccomplished();
 							break;
@@ -119,7 +119,7 @@ public class MakeTar extends HerbloreTask {
 						case SUCCESS:
 							if (tar.hasSufficientSwampTar(mp)) {
 								switch (banker.withdrawItem(mp, tar.getHerb().getFullName(),
-										mp.getInventory().getEmptySlots(), false, false)) {
+										mp.getInventory().getEmptySlots(), false, false, false)) {
 									case INSUFFICIENT_AMOUNT:
 										target.forceAccomplished();
 										break;

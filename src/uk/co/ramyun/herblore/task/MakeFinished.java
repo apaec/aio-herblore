@@ -111,7 +111,7 @@ public class MakeFinished extends HerbloreTask {
 				} else {
 					switch (MethodProvider.random(0, 2)) {
 						case 0:
-							switch (banker.withdrawItem(mp, potion.getSecondary().getName(), 14, false, false)) {
+							switch (banker.withdrawItem(mp, potion.getSecondary().getName(), 14, false, false, false)) {
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;
@@ -123,7 +123,7 @@ public class MakeFinished extends HerbloreTask {
 							}
 							break;
 						case 1:
-							switch (banker.withdrawItem(mp, potion.getUnfPotion().getName(), 14, false, false)) {
+							switch (banker.withdrawItem(mp, potion.getUnfPotion().getName(), 14, false, false, false)) {
 								case INSUFFICIENT_AMOUNT:
 									target.forceAccomplished();
 									break;

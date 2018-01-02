@@ -37,12 +37,15 @@ public class Banker {
 	 * @param total the desired amount of said item
 	 * @param stackable whether the item is stackable
 	 * @param noted whether to withdraw noted
+	 * @param forceAmount whether the amount is forced or fewer of the item is
+	 *            OK
 	 * @throws InterruptedException
 	 */
-	public WithdrawStatus withdrawItem(MethodProvider mp, String itemName, int total, boolean stackable, boolean noted)
-			throws InterruptedException {
+	public WithdrawStatus withdrawItem(MethodProvider mp, String itemName, int total, boolean stackable, boolean noted,
+			boolean forceAmount) throws InterruptedException {
 		if (mp.getBank().isOpen()) {
-			int current = 0, emptySlots = mp.getInventory().getEmptySlots(), needed = 0;
+			int current = 0, emptySlots = mp.getInventory().getEmptySlots(), needed = 0,
+					amountInBank = (int) mp.getBank().getAmount(itemName);
 			ItemSleep itemSleep = new ItemSleep(mp, itemName, 4000),
 					itemSleepGreater = new ItemSleep(mp, itemName, false, 4000);
 			BankMode requiredMode = noted ? BankMode.WITHDRAW_NOTE : BankMode.WITHDRAW_ITEM;
@@ -50,7 +53,10 @@ public class Banker {
 			if (current == total) return WithdrawStatus.SUCCESS;
 			needed = total - current;
 			if (!mp.getBank().getWithdrawMode().equals(requiredMode)) mp.getBank().enableMode(requiredMode);
-			if (mp.getBank().getAmount(itemName) < needed) return WithdrawStatus.INSUFFICIENT_AMOUNT;
+			if (amountInBank == 0 && needed > 0) return WithdrawStatus.INSUFFICIENT_AMOUNT;
+			if (forceAmount) {
+				if (amountInBank < needed) return WithdrawStatus.INSUFFICIENT_AMOUNT;
+			} else if (amountInBank < needed) needed = amountInBank;
 			if (stackable || noted) {
 				/* TODO: Will not work if noted and inv full of un-noted item */
 				if (emptySlots >= 1 || current > 0) {
