@@ -54,12 +54,33 @@ public abstract class HerbloreTask {
 	protected abstract void run(MethodProvider mp) throws InterruptedException;
 
 	/**
+	 * Task access point, will start script if needed
+	 * 
+	 * @param mp the script MethodProvider instance
+	 * @throws InterruptedException
+	 */
+	public final void execute(MethodProvider mp) throws InterruptedException {
+		if (started(mp)) run(mp);
+		else start(mp);
+	}
+
+	/**
 	 * Starts the task
 	 * 
 	 * @param mp the script MethodProvider instance
 	 */
 	protected void start(MethodProvider mp) {
 		started = true;
+		target.start(mp);
+	}
+
+	/**
+	 * Whether the task has been initialised
+	 * 
+	 * @param mp the script MethodProvider instance
+	 */
+	private final boolean started(MethodProvider mp) {
+		return started && target.started();
 	}
 
 	/**
@@ -67,18 +88,8 @@ public abstract class HerbloreTask {
 	 * 
 	 * @param mp the script MethodProvider instance
 	 */
-	public void stop(MethodProvider mp) {}
-
-	/**
-	 * Access point to the task. Starts the task if necessary, otherwise runs it
-	 * 
-	 * @param mp the script MethodProvider instance
-	 * @throws InterruptedException
-	 */
-	public void execute(MethodProvider mp) throws InterruptedException {
-		if (started && target.started()) run(mp);
-		else if (!started) start(mp);
-		else target.start(mp);
+	public void stop(MethodProvider mp) {
+		if (!started(mp)) start(mp);
 	}
 
 	/**
@@ -86,7 +97,7 @@ public abstract class HerbloreTask {
 	 * 
 	 * @return the ui panel
 	 */
-	public JPanel getPanel() {
+	public final JPanel getPanel() {
 		return containerPanel;
 	}
 
@@ -95,7 +106,7 @@ public abstract class HerbloreTask {
 	 * 
 	 * @return the task target
 	 */
-	public AbstractTarget getTarget() {
+	public final AbstractTarget getTarget() {
 		return target;
 	}
 
@@ -104,7 +115,7 @@ public abstract class HerbloreTask {
 	 * 
 	 * @param newTarget the new task target
 	 */
-	public void setTarget(AbstractTarget newTarget) {
+	public final void setTarget(AbstractTarget newTarget) {
 		this.target = newTarget;
 	}
 
@@ -114,7 +125,7 @@ public abstract class HerbloreTask {
 	 * @param mp the script MethodProvider instance
 	 * @return whether this task is complete
 	 */
-	public boolean isComplete(MethodProvider mp) {
+	public final boolean isComplete(MethodProvider mp) {
 		return target.accomplished(mp);
 	}
 
