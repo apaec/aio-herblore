@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import org.osbot.rs07.api.ui.Skill;
 
@@ -72,9 +73,9 @@ public class Ui extends JFrame implements TaskCollectionObserver {
 		herbloreTaskManager.registerObserver(this);
 		setTitle("All-In-One Herblore by Apaec");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(200, 200, 1000, 400);
+		setBounds(200, 200, 600, 250);
 		setContentPane(contentPane);
-		setLayout(new BorderLayout(5, 5));
+		setLayout(new BorderLayout(4, 4));
 
 		cleanButton.addActionListener(new ActionListener() {
 			@Override
@@ -129,11 +130,13 @@ public class Ui extends JFrame implements TaskCollectionObserver {
 			}
 		});
 
+		contentPane.setBorder(new EmptyBorder(4, 4, 4, 4));
+
 		scrollPane.setColumnHeaderView(new JLabel("Registered Task Queue", SwingConstants.CENTER));
 		scrollPane.setViewportView(taskList);
 
-		controlButtonPanel.setLayout(new GridLayout(1, 2, 5, 5));
-		addButtonPanel.setLayout(new GridLayout(5, 1, 5, 5));
+		controlButtonPanel.setLayout(new GridLayout(1, 2, 4, 4));
+		addButtonPanel.setLayout(new GridLayout(5, 1, 4, 4));
 
 		controlButtonPanel.add(rmButton);
 		controlButtonPanel.add(clrButton);

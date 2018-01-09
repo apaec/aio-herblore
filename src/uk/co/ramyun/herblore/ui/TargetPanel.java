@@ -59,8 +59,8 @@ public class TargetPanel extends JPanel {
 
 		setBorder(new TitledBorder("Target Settings"));
 		setLayout(new GridLayout());
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new GridLayout(1, 2, 5, 5));
+		contentPane.setBorder(new EmptyBorder(4, 4, 4, 4));
+		contentPane.setLayout(new GridLayout(1, 2, 4, 4));
 		contentPane.add(targetCombo);
 		contentPane.add(spinner);
 		add(contentPane);

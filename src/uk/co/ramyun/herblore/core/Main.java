@@ -18,7 +18,7 @@ import uk.co.ramyun.herblore.util.GaussianRandom;
 import uk.co.ramyun.herblore.util.TaskCollectionObserver;
 import uk.co.ramyun.herblore.util.Timer;
 
-@ScriptManifest(author = "Apaec", info = "AIO Herblore", name = "APA AIO Herblore", version = 1.02, logo = "https://i.imgur.com/E1yWP31.png")
+@ScriptManifest(author = "Apaec", info = "AIO Herblore", name = "APA AIO Herblore", version = 1.03, logo = "https://i.imgur.com/E1yWP31.png")
 public class Main extends Script implements TaskCollectionObserver {
 
 	/**
