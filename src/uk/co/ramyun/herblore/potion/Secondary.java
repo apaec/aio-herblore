@@ -17,7 +17,7 @@ public enum Secondary {
 
 	CHOCOLATE_DUST("Chocolate dust"), WHITE_BERRIES("White berries"), TOADS_LEGS("Toad's legs"),
 
-	GOAT_HORN_DUST("Goat horn dust"), SNAPE_GRASS("Snape grass"), MORT_MYRE_FUNGI("Mory myre fungi"),
+	GOAT_HORN_DUST("Goat horn dust"), SNAPE_GRASS("Snape grass"), MORT_MYRE_FUNGI("Mort myre fungus"),
 
 	SHRUNK_OGLEROOT("Shrunk ogleroot"), KEBBIT_TEETH_DUST("Kebbit teeth dust"), GORAK_CLAW_POWDER("Gorak claw powder"),
 
