@@ -38,7 +38,7 @@ public enum Potion {
 
 	FISHING_POTION("Fishing potion", Unfinished.AVANTOE_POTION, Secondary.SNAPE_GRASS, 50),
 
-	SUPER_ENERGY_POTION("Super energy potion", Unfinished.AVANTOE_POTION, Secondary.MORT_MYRE_FUNGI, 52),
+	SUPER_ENERGY_POTION("Super energy", Unfinished.AVANTOE_POTION, Secondary.MORT_MYRE_FUNGI, 52),
 
 	HUNTER_POTION("Hunter potion", Unfinished.AVANTOE_POTION, Secondary.KEBBIT_TEETH_DUST, 53),
 
