@@ -27,7 +27,7 @@ public enum Secondary {
 
 	AMYLASE_CRYSTAL("Amylase crystal"), JANGERBERRIES("Jangerberries"), MAGIC_ROOTS("Magic roots"),
 
-	CRUSHED_NEST("Crushed bird's nest"), NIGHTSHADE("Nightshade"), POISON_IVY_BERRIES("Poison ivy berries"),
+	CRUSHED_NEST("Crushed nest"), NIGHTSHADE("Nightshade"), POISON_IVY_BERRIES("Poison ivy berries"),
 
 	LAVA_SCALE_SHARD("Lava scale shard"), ZULRAH_SCALES("Zulrah's scales");
 
