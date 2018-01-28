@@ -10,7 +10,7 @@ public enum Unfinished {
 	 * @file Unfinished.java
 	 */
 
-	AVANTOE_POTION("Avantoe potion", Herb.GUAM_LEAF, Vessel.VIAL_OF_WATER, 50),
+	AVANTOE_POTION("Avantoe potion", Herb.AVANTOE, Vessel.VIAL_OF_WATER, 50),
 
 	CADANTINE_POTION("Cadantine potion", Herb.CADANTINE, Vessel.VIAL_OF_WATER, 66),
 
