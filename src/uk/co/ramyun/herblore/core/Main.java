@@ -114,7 +114,7 @@ public class Main extends Script implements TaskCollectionObserver {
 		if (xpGained > 0) progressBar.draw(g);
 
 		/* Draw cross cursor */
-		if (getMouse().isWithinCanvas()) {
+		if (getMouse().isOnScreen()) {
 			g.setColor(cursorColour);
 			int mouseX = getMouse().getPosition().x, mouseY = getMouse().getPosition().y;
 			g.drawLine(mouseX - 5, mouseY + 5, mouseX + 5, mouseY - 5);
