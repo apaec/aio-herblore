@@ -50,11 +50,11 @@ public enum Potion {
 
 	SUPER_RESTORE("Super restore", Unfinished.SNAPDRAGON_POTION, Secondary.RED_SPIDERS_EGGS, 63),
 
-	SUPER_DEFENCE_POTION("Super defence potion", Unfinished.CADANTINE_POTION, Secondary.WHITE_BERRIES, 66),
+	SUPER_DEFENCE("Super defence", Unfinished.CADANTINE_POTION, Secondary.WHITE_BERRIES, 66),
 
 	ANTIDOTE_1("Antidote+", Unfinished.ANTIDOTEPLUS, Secondary.YEW_ROOTS, 68),
 
-	ANTIFIRE_POTION("Anti-fire potion", Unfinished.LANTADYME_POTION, Secondary.DRAGON_SCALE_DUST, 69),
+	ANTIFIRE_POTION("Antifire potion", Unfinished.LANTADYME_POTION, Secondary.DRAGON_SCALE_DUST, 69),
 
 	RANGING_POTION("Ranging potion", Unfinished.DWARF_WEED_POTION, Secondary.WINE_OF_ZAMORAK, 72),
 
