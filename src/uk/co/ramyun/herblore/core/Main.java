@@ -64,7 +64,7 @@ public class Main extends Script implements TaskCollectionObserver {
 		/* Grab data from UI */
 		herbloreTaskManager = ui.getHerbloreTaskManager();
 		herbloreTaskManager.registerObserver(this);
-		if (herbloreTaskManager.totalTasks() <= 0) logStop("No tasks specified", false);
+		if (!herbloreTaskManager.hasTasks()) logStop("No tasks specified", false);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class HerbloreTaskManager implements Observable {
 	}
 
 	public boolean hasTasks() {
-		return tasks.isEmpty();
+		return !tasks.isEmpty();
 	}
 
 	public boolean loop(MethodProvider mp) {
@@ -79,7 +79,7 @@ public class HerbloreTaskManager implements Observable {
 
 	@Override
 	public void removeObserver(TaskCollectionObserver o) {
-		observers.remove(0);
+		observers.remove(o);
 	}
 
 }
