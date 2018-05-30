@@ -23,7 +23,7 @@ public enum Secondary {
 
 	DRAGON_SCALE_DUST("Dragon scale dust"), NAIL_BEAST_NAILS("Nail beast nails"), YEW_ROOTS("Yew roots"),
 
-	WINE_OF_ZAMORAK("Wine of Zamorak"), CACTUS_SPINE("Cactus spine"), POTATO_CACTUS("Potato cactus"),
+	WINE_OF_ZAMORAK("Wine of zamorak"), CACTUS_SPINE("Cactus spine"), POTATO_CACTUS("Potato cactus"),
 
 	AMYLASE_CRYSTAL("Amylase crystal"), JANGERBERRIES("Jangerberries"), MAGIC_ROOTS("Magic roots"),
 
